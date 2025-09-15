@@ -1,40 +1,47 @@
-Project Overview
-
-This project implements a RESTful API for an e-commerce app (ShoppyGlobe). It includes:
-
-Products endpoints (list, detail)
-
-Cart endpoints (add, update quantity, delete)
-
-User registration & login (JWT)
-
-MongoDB integration for products & cart
-
-Middleware: request logging, validation, error handling
-
-Thunder Client collection for testing
+**🛍️ ShoppyGlobe RESTful API**
 
 
-Tech Stack
+GIT Link : https://github.com/Aditya-MC/shoppyglobe-backend
 
-Node.js (v18+ recommended)
+**📌 Project Overview**
 
-Express.js
+This project implements a RESTful API for an e-commerce app (ShoppyGlobe).
 
-MongoDB (Atlas or local)
+**✨ Features:**
 
-Mongoose (ODM)
+🛒 Products → List, Detail
 
-JWT for auth
+📦 Cart → Add, Update Quantity, Delete
 
-Thunder Client (VSCode) for testing
+👤 Users → Register & Login (JWT)
 
+🗄 MongoDB → Products & Cart storage
 
-API Endpoints
-Authentication
+🛡 Middleware → Logging, Validation, Error Handling
 
+🧪 Thunder Client → For API Testing
+
+**🛠 Tech Stack**
+
+⚡ Node.js (v18+ recommended)
+
+🚀 Express.js
+
+🍃 MongoDB (Atlas or Local)
+
+🧩 Mongoose (ODM)
+
+🔑 JWT (Authentication)
+
+🧪 Thunder Client (VSCode Extension)
+
+🔑 API Endpoints
+🔐 Authentication
 POST /register
-Register new user. Body:
+
+Registers a new user.
+
+Request Body:
 
 {
   "name": "Aditya",
@@ -43,10 +50,14 @@ Register new user. Body:
 }
 
 
-Response: 201 Created + user (no password) or error 400.
+✅ Response: 201 Created (user object without password)
+❌ Error: 400 Bad Request
 
 POST /login
-Login and receive JWT. Body:
+
+Logs in a user and returns a JWT token.
+
+Request Body:
 
 {
   "email": "aditya@example.com",
@@ -54,24 +65,36 @@ Login and receive JWT. Body:
 }
 
 
-Response: 200 OK + { token: "JWT_TOKEN" } or 401.
+✅ Response:
 
-Protect cart routes using Authorization: Bearer <token> header.
+{ "token": "JWT_TOKEN" }
 
-Products
 
+❌ Error: 401 Unauthorized
+
+⚠️ Cart routes require → Authorization: Bearer <token>
+
+📦 Products
 GET /products
-Fetch products list. Response 200 OK + array.
+
+Fetches all products.
+
+✅ Response: 200 OK (array of products)
 
 GET /products/:id
-Fetch single product by MongoDB _id. Response 200 OK or 404 Not Found.
 
-(Products should have at least: name, price, description, stock)
+Fetches a single product by MongoDB _id.
 
-Cart (protected)
+✅ Response: 200 OK
 
+❌ Error: 404 Not Found
+
+🛒 Cart (Protected)
 POST /cart
-Add item to user’s cart. Body:
+
+Adds an item to the user’s cart.
+
+Request Body:
 
 {
   "productId": "<product_id>",
@@ -79,56 +102,53 @@ Add item to user’s cart. Body:
 }
 
 
-Validates product exists & sufficient stock. Response 201 Created or 400.
+✅ Response: 201 Created
+❌ Error: 400 Bad Request
 
 PUT /cart/:itemId
-Update quantity of a cart item. Body:
+
+Updates the quantity of a cart item.
+
+Request Body:
 
 { "quantity": 3 }
 
 
-Response 200 OK or 404.
+✅ Response: 200 OK
+❌ Error: 404 Not Found
 
 DELETE /cart/:itemId
-Remove an item from cart. Response 200 OK or 404.
 
-Data Models (summary)
-Product
-{
-  _id: ObjectId,
-  name: String,
-  price: Number,
-  description: String,
-  stock: Number,
-  createdAt: Date
-}
+Removes an item from cart.
 
-Cart Item
-{
-  _id: ObjectId,
-  userId: ObjectId,
-  productId: ObjectId,
-  quantity: Number,
-  addedAt: Date
-}
+✅ Response: 200 OK
+❌ Error: 404 Not Found
 
-User
-{
-  _id: ObjectId,
-  name: String,
-  email: String,
-  passwordHash: String
-}
 
-Middleware & Validation 
 
-Request logger — logs method, url, and response statusCode (use res.on('finish', ...)).
+⚙️ Middleware & Validation
 
-Auth middleware — verifies JWT; attaches req.user.
+📝 Request Logger → Logs method, URL & status code.
 
-Validation middleware — checks required fields on POST /cart, POST /register, POST /products (if you implemented product creation). Returns 400 Bad Request for missing fields.
+🔑 Auth Middleware → Verifies JWT and attaches req.user.
 
-Error handler — central express error handler sending JSON { error: "message" } with appropriate HTTP code.
+✅ Validation Middleware → Checks required fields in POST /cart, POST /register, and POST /products. Returns 400 Bad Request if missing fields.
 
+🚨 Error Handler → Central handler returning { error: "message" } with correct HTTP codes.
+
+🚀 How to Run Locally
+
+# Clone repo
+git clone https://github.com/Aditya-MC/shoppyglobe-backend
+cd shoppyglobe-backend
+
+# Install dependencies
+npm install
+
+# Start server
+npm run dev
+
+
+📍 Server runs at → http://localhost:5100
 
 
